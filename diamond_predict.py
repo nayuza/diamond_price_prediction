@@ -5,15 +5,7 @@ from tensorflow.keras.models import load_model
 import requests
 from sklearn.preprocessing import MinMaxScaler
 
-# Load the model from GitHub
-@st.cache_resource
-def load_prediction_model():
-    url = "https://raw.githubusercontent.com/nayuza/5073_ailanjut_uas/main/5073_diamond_price_prediction_model.keras"
-    with open("5073_diamond_price_prediction_model.keras", "wb") as f:
-        f.write(requests.get(url).content)
-    return load_model("5073_diamond_price_prediction_model.keras")
-
-model = load_prediction_model()
+model = load_model('5073_diamond_price_prediction_model.keras')
 
 # Sidebar Header
 st.sidebar.header("Fitur Berlian")
