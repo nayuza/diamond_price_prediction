@@ -6,7 +6,6 @@ import requests
 from sklearn.preprocessing import MinMaxScaler
 
 # Fungsi untuk memuat model
-@st.cache_resource
 model = load_model('5073_diamond_price_prediction_model.keras')
 
 # Fungsi untuk skala data
