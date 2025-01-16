@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import load_model
-import requests
 from sklearn.preprocessing import MinMaxScaler
 
 # Fungsi untuk memuat model
@@ -11,28 +10,62 @@ model = load_model('5073_diamond_price_prediction_model.keras')
 # Fungsi untuk skala data
 def scale_input(data):
     scaler = MinMaxScaler()
-    scaler.fit([[0.2, 0, 0, 0, 50, 50, 3, 3, 2], [5, 4, 6, 7, 75, 80, 10, 10, 7]])  # Sesuaikan dengan batas fitur
+    scaler.fit([[0.2, 0, 0, 0, 50, 50, 3, 3, 2], [5, 4, 6, 7, 75, 80, 10, 10, 7]])
     return scaler.transform(data)
 
 # Judul aplikasi
-st.title("Prediksi Harga Berlian")
-st.write("""
-Gunakan aplikasi ini untuk memprediksi harga berlian berdasarkan fitur-fiturnya.
-Masukkan fitur-fitur di bawah ini untuk mendapatkan hasil prediksi.
-""")
+st.markdown(
+    """
+    <style>
+    .main-title {
+        font-size: 35px;
+        font-weight: bold;
+        color: #007BFF;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .sub-title {
+        font-size: 20px;
+        color: #333333;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .footer {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 16px;
+        color: #555555;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown('<div class="main-title">Prediksi Harga Berlian</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="sub-title">Masukkan fitur berlian untuk mendapatkan prediksi harga.</div>',
+    unsafe_allow_html=True,
+)
 
 # Input untuk fitur berlian
-st.header("Masukkan Fitur Berlian")
+st.write("### Masukkan Fitur Berlian")
 
-carat = st.slider("Berat Karat", 0.2, 5.0, 1.0, 0.1)
-cut = st.selectbox("Kualitas Potongan", ['Fair', 'Good', 'Very Good', 'Premium', 'Ideal'])
-color = st.selectbox("Grade Warna", ['J', 'I', 'H', 'G', 'F', 'E', 'D'])
-clarity = st.selectbox("Grade Kejernihan", ['I1', 'SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF'])
-depth = st.slider("Persentase Kedalaman (%)", 50.0, 75.0, 62.0, 0.1)
-table = st.slider("Lebar Table (%)", 50.0, 80.0, 57.0, 0.1)
-x = st.slider("Panjang (mm)", 3.0, 10.0, 5.5, 0.1)
-y = st.slider("Lebar (mm)", 3.0, 10.0, 5.5, 0.1)
-z = st.slider("Kedalaman (mm)", 2.0, 7.0, 3.5, 0.1)
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    carat = st.slider("Berat Karat", 0.2, 5.0, 1.0, 0.1)
+    depth = st.slider("Persentase Kedalaman (%)", 50.0, 75.0, 62.0, 0.1)
+    x = st.slider("Panjang (mm)", 3.0, 10.0, 5.5, 0.1)
+
+with col2:
+    cut = st.selectbox("Kualitas Potongan", ['Fair', 'Good', 'Very Good', 'Premium', 'Ideal'])
+    table = st.slider("Lebar Table (%)", 50.0, 80.0, 57.0, 0.1)
+    y = st.slider("Lebar (mm)", 3.0, 10.0, 5.5, 0.1)
+
+with col3:
+    color = st.selectbox("Grade Warna", ['J', 'I', 'H', 'G', 'F', 'E', 'D'])
+    clarity = st.selectbox("Grade Kejernihan", ['I1', 'SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF'])
+    z = st.slider("Kedalaman (mm)", 2.0, 7.0, 3.5, 0.1)
 
 # Mapping kategori ke angka
 cut_mapping = {'Fair': 0, 'Good': 1, 'Very Good': 2, 'Premium': 3, 'Ideal': 4}
@@ -71,3 +104,14 @@ if st.button("Prediksi Harga Berlian"):
     except Exception as e:
         st.error(f"Error saat melakukan prediksi: {e}")
 
+# Footer
+st.markdown(
+    """
+    <div class="footer">
+        Nama: M.Nasyid Yunitian Rizal<br>
+        NIM: 22.11.5073<br>
+        Aplikasi ini dibuat untuk tugas prediksi harga berlian.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
