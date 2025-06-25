@@ -108,8 +108,10 @@ if st.button("Prediksi Harga Berlian"):
 st.markdown(
     """
     <div class="footer">
-        Nama: M.Nasyid Yunitian Rizal<br>
-        NIM: 22.11.5073<br>
+        Anggota Kelompok:<br>
+        - M.Nasyid Yunitian Rizal (22.11.5073)<br>
+        - Ubaid Khoir Julio Dn (21.11.3822)<br>
+        - Sofyan (22.11.5099)<br>
         Aplikasi ini dibuat untuk tugas prediksi harga berlian.
     </div>
     """,
